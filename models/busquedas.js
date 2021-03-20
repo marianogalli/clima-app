@@ -39,6 +39,43 @@ class Busquedas{
             throw('error: ',error)
         }
     }
+
+    get paramsWeather(){
+        return {
+            appid:process.env.OPENWEATHER_KEY,
+            units:'metric',
+            lang:'es'
+        }
+    }
+
+    async climarLugar(lat,lon){
+
+        try {
+            
+            const instance=axios.create({
+                baseURL:'https://api.openweathermap.org/data/2.5/weather',
+                params:{ ...this.paramsWeather,lat,lon}                                    
+            })
+    
+            const resultado=await instance.get();
+            const desc=resultado.data.weather[0].description;
+            const{temp, temp_min, temp_max}=resultado.data.main;
+
+            return{
+                desc,
+                temp,
+                temp_min,
+                temp_max
+            }
+            
+        } catch (error) {
+            console.log('error: ',error);
+        }     
+
+    }
+
+
+
 }
 
 

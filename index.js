@@ -26,21 +26,25 @@ const main=async()=>{
                 
                 //Buscar lugares
                 const id=await listarLugares(lugares)
-                const lugarSeleccionado=lugares.find(l=>l.id==id)
-                console.log(lugarSeleccionado);
+                
 
                 //Seleccionar lugar
+                const lugarSeleccionado=lugares.find(l=>l.id==id)
+                const {lng,lat}=lugarSeleccionado;
                 
                 //Clima
+                const infoClima=await busquedas.climarLugar(lat,lng);
+                //console.log(infoClima);
 
                 //Mostrar resultados
                 console.log('\n Información de la ciudad \n'.green);
                 console.log('Ciudad: ', lugarSeleccionado.nombre);
                 console.log('Lat: ', lugarSeleccionado.lat);
                 console.log('Lng: ',lugarSeleccionado.lng);
-                console.log('Temperatura: ',);
-                console.log('Mínima: ', );
-                console.log('Máxima: ', );
+                console.log('Temperatura: ',infoClima.temp);
+                console.log('Mínima: ',infoClima.temp_min);
+                console.log('Máxima: ',infoClima.temp_max);
+                console.log('Como está el clima: ', infoClima.desc.green);
             break;
 
             case 2:
